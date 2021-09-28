@@ -4,6 +4,7 @@ import "./App.css";
 import { getCompanies, getProducts } from "./utils/dbManagement";
 import { useDispatch } from "react-redux";
 import { fetchingCompanies, fetchingProducts } from "./redux/actions";
+import Sorting from "./components/sortingProducts"
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function App() {
           Learn React
         </a>
       </header>
+     <Sorting />
     </div>
   );
 }

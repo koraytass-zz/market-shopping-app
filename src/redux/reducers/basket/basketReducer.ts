@@ -27,6 +27,9 @@ const basketReducer = (state = initialState, action: any) => {
     case actionTypes.FETCHING_PRODUCTS: {
       return { ...state, products: action.products };
     }
+    case actionTypes.FETCHING_COMPANIES: {
+      return { ...state, products: action.companies };
+    }
     case actionTypes.ADD_TO_BASKET: {
       let addedProduct: Product | undefined = state.products.find(
         (product: Product) => product.slug === action.slug
