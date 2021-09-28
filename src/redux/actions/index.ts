@@ -15,3 +15,6 @@ interface Product {
 export const fetchingProducts = (payload: Product[]) => {
     return {type: actionTypes.FETCHING_PRODUCTS, products: payload}
 }
+export const fetchingCompanies = (payload: Product[]) => {
+    return {type: actionTypes.FETCHING_COMPANIES, companies: payload}
+}
