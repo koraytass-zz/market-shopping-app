@@ -1,4 +1,5 @@
-import * as actionTypes from "../actions/actionTypes";
+import * as actionTypes from "../../actions/actionTypes";
+// check can use it general Product array
 interface Product {
   tags: string[];
   price: number;
@@ -16,18 +17,28 @@ interface InitialState {
   products: Product[];
   productsInTheBasket: Product[];
 }
-const initialState: InitialState = { totalCost: 0, products: [], productsInTheBasket: [] };
+const initialState: InitialState = {
+  totalCost: 0,
+  products: [],
+  productsInTheBasket: [],
+};
 const basketReducer = (state = initialState, action: any) => {
   switch (action.type) {
+    case actionTypes.FETCHING_PRODUCTS: {
+      return { ...state, products: action.products };
+    }
     case actionTypes.ADD_TO_BASKET: {
       let addedProduct: Product | undefined = state.products.find(
-        (product: Product) => product.slug === action.slug,
+        (product: Product) => product.slug === action.slug
       );
       if (addedProduct) {
         let newTotalCost: number = state.totalCost + addedProduct.price;
         return {
           ...state,
-          productsInTheBasket: [...state.products, { ...addedProduct, productCount: 1 }],
+          productsInTheBasket: [
+            ...state.products,
+            { ...addedProduct, productCount: 1 },
+          ],
           totalCost: newTotalCost,
         };
       } else {
@@ -36,10 +47,10 @@ const basketReducer = (state = initialState, action: any) => {
     }
     case actionTypes.REMOVE_FROM_BASKET: {
       let removedProduct: Product | undefined = state.products.find(
-        (product: Product) => product.slug === action.slug,
+        (product: Product) => product.slug === action.slug
       );
       let remainingProducts: Product[] = state.productsInTheBasket.filter(
-        (product: Product) => product.slug !== action.product.slug,
+        (product: Product) => product.slug !== action.product.slug
       );
       if (removedProduct && removedProduct.productCount) {
         let newTotalCost: number =
@@ -56,7 +67,7 @@ const basketReducer = (state = initialState, action: any) => {
     case actionTypes.INCREASE_ITEMS: {
       let newTotalCost;
       let increasedItem: Product | undefined = state.products.find(
-        (product: Product) => product.slug === action.slug,
+        (product: Product) => product.slug === action.slug
       );
       if (increasedItem && increasedItem.productCount) {
         increasedItem.productCount += 1;
@@ -73,9 +84,13 @@ const basketReducer = (state = initialState, action: any) => {
     case actionTypes.DECREASE_ITEMS: {
       let newTotalCost;
       let decreasedItem: Product | undefined = state.products.find(
-        (product: Product) => product.slug === action.slug,
+        (product: Product) => product.slug === action.slug
       );
-      if (decreasedItem && decreasedItem.productCount && decreasedItem.productCount > 1) {
+      if (
+        decreasedItem &&
+        decreasedItem.productCount &&
+        decreasedItem.productCount > 1
+      ) {
         decreasedItem.productCount -= 1;
         newTotalCost = state.totalCost - decreasedItem.price;
       }
