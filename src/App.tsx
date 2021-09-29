@@ -5,6 +5,8 @@ import { getCompanies, getProducts } from "./utils/dbManagement";
 import { useDispatch } from "react-redux";
 import { fetchingCompanies, fetchingProducts } from "./redux/actions";
 import Sorting from "./components/sortingProducts"
+import SearchingByBrands from "./components/searchingByBrands";
+import SearchingByTag from "./components/searchingByTag";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +39,8 @@ function App() {
         </a>
       </header>
      <Sorting />
+     <SearchingByTag />
+     <SearchingByBrands/>
     </div>
   );
 }

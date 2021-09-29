@@ -9,7 +9,7 @@ const Sorting = () => {
     setSelect(value);
   };
   return (
-    <Wrapper>
+    <Container>
       <Item>
         <RadioButton
           type="radio"
@@ -54,17 +54,16 @@ const Sorting = () => {
         <RadioButtonLabel />
         <div>New to old</div>
       </Item>
-    </Wrapper>
+    </Container>
   );
 };
 
-const Wrapper = styled.div`
-  height: auto;
-  width: 100%;
+const Container = styled.div`
+  height: 274px;
+  width: 296px; 
   padding: 0px 16px 24px 16px;
   box-sizing: border-box;
 `;
-
 const Item = styled.div`
   display: flex;
   align-items: center;
