@@ -38,11 +38,11 @@ export const getFilteredProductsByItemType = async (itemType) => {
 export const getBrands = async () => {
   try {
     let brands = [];
-    const { data } = await axios.get(`${SERVER}/dbProducts`);
-    data.dbProducts.forEach(
-        (product) => {
-          if(!brands.includes(product.manufacturer)){
-            brands.push(product.manufacturer);
+    const { data } = await axios.get(`${SERVER}/dbCompanies`);
+    data.dbCompanies.forEach(
+        (company) => {
+          if(!brands.includes(company.name)){
+            brands.push(company.name);
           }
         }
     );

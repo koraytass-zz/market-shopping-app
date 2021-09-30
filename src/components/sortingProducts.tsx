@@ -10,6 +10,7 @@ const Sorting = () => {
   };
   return (
     <Container>
+      <div>Sorting</div>
       <Item>
         <RadioButton
           type="radio"

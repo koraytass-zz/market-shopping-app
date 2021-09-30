@@ -31,8 +31,8 @@ const SearchingByTag = () => {
   `;
   const TagContainer = styled.div`
     overflow: auto;
-    height:99px;
-    width:142px;
+    height:142px;
+    width:214px;
   `;
 
   return (

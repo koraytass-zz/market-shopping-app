@@ -12,9 +12,9 @@ const Input = styled.input`
   border: 2px solid #e0e0e0;
 `;
 
-function SearchInput(searchType: any) {
+function SearchInput(props: any) {
   return (
-      <Input type="text" placeholder={`Search ${searchType} `} />
+      <Input type="text" placeholder={`Search ${props.searchType} `} />
   );
 }
 
