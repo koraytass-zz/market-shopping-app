@@ -16,7 +16,13 @@ const StyledCheckBox = styled.input`
   width: 22px;
   height: 22px;
   margin-left: 14px;
-  background: ${(props) => (props.checked ? "#1ea4ce" : "FFFFFF")}
+  background: ${(props) => (props.checked ? "#1ea4ce" : "FFFFFF")};
+`;
+
+const TextStyle = styled.div`
+color: #A8A8A8;
+font-family: "Open Sans";
+font-size: 18px;
 `;
 
 const Checkbox: (input: CheckBoxInput) => JSX.Element = ({
