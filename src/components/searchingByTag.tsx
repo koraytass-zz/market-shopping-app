@@ -27,17 +27,22 @@ const SearchingByTag = () => {
 
   const Container = styled.div`
     height: 214px;
-    width: 296px;
+    width: 100%;
   `;
   const TagContainer = styled.div`
     overflow: auto;
     height:142px;
     width:214px;
   `;
+  const FilterArea = styled.div`
+  background-color: white;
+`;
 
   return (
     <>
       <Container>
+      <span>Tags</span>
+      <FilterArea>
         <SearchInput searchType={"tag"}></SearchInput>
         <TagContainer>
         {tags &&
@@ -51,6 +56,7 @@ const SearchingByTag = () => {
             );
           })}
           </TagContainer>
+          </FilterArea>
       </Container>
     </>
   );

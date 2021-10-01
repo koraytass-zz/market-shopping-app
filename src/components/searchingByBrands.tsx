@@ -25,32 +25,38 @@ const SearchingByBrands = () => {
   }, []);
 
   const Container = styled.div`
-  height: 214px;
-  width: 296px;
-`;
-const TagContainer = styled.div`
-  overflow: auto;
-  height:142px;
-  width:214px;
-`;
-return (
-  <>
-    <Container>
-      <SearchInput searchType={"brand"}></SearchInput>
-      <TagContainer>
-      {brands &&
-        brands.map((brandName: string) => {
-          return (
-            <Checkbox
-              name={brandName}
-              checked={checkedBoxes[brandName]}
-              onChange={handleCheckboxChange}
-            />
-          );
-        })}
-        </TagContainer>
-    </Container>
-  </>
-);
+    height: 214px;
+    width: 100%;
+  `;
+  const TagContainer = styled.div`
+    overflow: auto;
+    height: 142px;
+    width: 214px;
+  `;
+  const FilterArea = styled.div`
+    background-color: white;
+  `;
+  return (
+    <>
+      <Container>
+        <span>Brands</span>
+        <FilterArea>
+          <SearchInput searchType={"brand"}></SearchInput>
+          <TagContainer>
+            {brands &&
+              brands.map((brandName: string) => {
+                return (
+                  <Checkbox
+                    name={brandName}
+                    checked={checkedBoxes[brandName]}
+                    onChange={handleCheckboxChange}
+                  />
+                );
+              })}
+          </TagContainer>
+        </FilterArea>
+      </Container>
+    </>
+  );
 };
 export default SearchingByBrands;

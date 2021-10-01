@@ -10,7 +10,7 @@ const Sorting = () => {
   };
   return (
     <Container>
-      <div>Sorting</div>
+      <span>Sorting</span>
       <Item>
         <RadioButton
           type="radio"
@@ -61,7 +61,7 @@ const Sorting = () => {
 
 const Container = styled.div`
   height: 274px;
-  width: 296px; 
+  width: 100%;
   padding: 0px 16px 24px 16px;
   box-sizing: border-box;
 `;
@@ -70,6 +70,7 @@ const Item = styled.div`
   align-items: center;
   height: 48px;
   position: relative;
+  background-color: white;
 `;
 
 const RadioButtonLabel = styled.label`

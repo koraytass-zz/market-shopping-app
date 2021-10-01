@@ -8,6 +8,7 @@ const HeaderMain = styled.div`
   background: #1ea4ce;
   justify-content: center;
   text-align: center;
+  grid-area: header;
 `;
 const MarketIcon = styled.img``;
 const MarketDiv = styled.div`
@@ -26,7 +27,7 @@ const BasketDiv = styled.div`
   place-self: center;
   justify-content: center;
   position: relative;
-  left: 150px;
+  left: 180px;
 `;
 const BasketIcon = styled.img`
   place-self: center;

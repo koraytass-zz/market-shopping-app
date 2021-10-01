@@ -17,7 +17,9 @@ function Toggle() {
 
   const Box = styled.div`
     display: flex;
-    height: 100vh;
+    position: absolute;
+    top: 18%;
+    left: 25%;
   `;
   const Inactive = styled.div`
     width: 60px;
