@@ -36,10 +36,18 @@ const basketReducer = (state = initialState, action: any) => {
       );
       if (addedProduct) {
         let newTotalCost: number = state.totalCost + addedProduct.price;
-        return {
+        console.log("add item: ", {
           ...state,
           productsInTheBasket: [
-            ...state.products,
+            ...state.productsInTheBasket,
+            { ...addedProduct, productCount: 1 },
+          ],
+          totalCost: newTotalCost,
+        });
+        return {
+          ...state, 
+          productsInTheBasket: [
+            ...state.productsInTheBasket,
             { ...addedProduct, productCount: 1 },
           ],
           totalCost: newTotalCost,

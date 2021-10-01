@@ -18,3 +18,7 @@ export const fetchingProducts = (payload: Product[]) => {
 export const fetchingCompanies = (payload: Product[]) => {
     return {type: actionTypes.FETCHING_COMPANIES, companies: payload}
 }
+
+export const addToBasket = (payload: string) => {
+    return {type: actionTypes.ADD_TO_BASKET, slug: payload}
+}
