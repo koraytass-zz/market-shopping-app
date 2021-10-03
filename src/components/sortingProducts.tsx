@@ -1,13 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { sortedByPrice, sortedByTime } from "../redux/actions";
+import { sortProducts } from "../utils/sortingProducts";
 
 const Sorting = () => {
+  const dispatch = useDispatch();
   const [select, setSelect] = useState("PricingToHigh");
 
   const handleSelectChange = (event: any) => {
     const value = event.target.value;
     setSelect(value);
   };
+
+  useEffect(() => {
+    const sortWrapper = async () => {
+      let products = await sortProducts(select);
+      if(products.actionType === 'SORTING_BY_PRICE'){
+        dispatch(sortedByPrice(products.sortedproducts));
+      }
+      else{
+        dispatch(sortedByTime(products.sortedproducts));
+      }
+  };
+  sortWrapper();
+  }, [select]);
+
   return (
     <Container>
       <span>Sorting</span>
@@ -61,8 +79,7 @@ const Sorting = () => {
 
 const Container = styled.div`
   height: 274px;
-  width: 100%;
-  padding: 0px 16px 24px 16px;
+  width: 296px;
   box-sizing: border-box;
 `;
 const Item = styled.div`

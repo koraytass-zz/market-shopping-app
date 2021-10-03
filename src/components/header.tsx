@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const HeaderMain = styled.div`
@@ -40,6 +41,9 @@ const TotalCost = styled.div`
 `;
 
 const MarketHeader = () => {
+  const state = useSelector((state: any) => {
+    return { ...state.basketReducer };
+  });
   return (
     <HeaderMain>
       <MarketDiv>
@@ -47,7 +51,7 @@ const MarketHeader = () => {
       </MarketDiv>
       <BasketDiv>
         <BasketIcon src="/images/basket.png" />
-        <TotalCost>₺39,95</TotalCost>
+        <TotalCost>₺{state ? state.totalCost : 0}</TotalCost>
       </BasketDiv>
     </HeaderMain>
   );

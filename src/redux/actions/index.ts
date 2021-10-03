@@ -22,3 +22,19 @@ export const fetchingCompanies = (payload: Product[]) => {
 export const addToBasket = (payload: string) => {
     return {type: actionTypes.ADD_TO_BASKET, slug: payload}
 }
+
+export const sortedByTime = (payload: string) => {
+    return {type: actionTypes.SORTING_BY_TIME, sortedProducts: payload}
+}
+export const sortedByPrice = (payload: string) => {
+    return {type: actionTypes.SORTING_BY_PRICE, sortedProducts: payload}
+}
+
+export const increaseItems = (payload: string) => {
+    return {type: actionTypes.INCREASE_ITEMS, slug: payload}
+}
+
+export const decreaseItems = (payload: string) => {
+    return {type: actionTypes.DECREASE_ITEMS, slug: payload}
+}
+

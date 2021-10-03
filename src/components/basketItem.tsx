@@ -1,23 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import QuantitySelection from "./quantitySelection";
 
-const Basket = (productName: any, quantity: any, price: any) => {
-  const [totalCost, setTotalCost] = useState(0);
-  const [cost, setCost] = useState({});
+const Basket = () => {
+  const state = useSelector((state: any) => {
+    return { ...state.basketReducer };
+  });
 
-  const totalCostCalculation = (quantity: number, price: number) => {
-    let balance = quantity * price + totalCost;
-    setTotalCost(balance);
-  };
-
-  const costCalculation = (
-    productName: string,
-    quantity: number,
-    price: number
-  ) => {
-    let itemCost = quantity * price;
-    setCost({ ...cost, productName, itemCost });
-  };
   const OuterContainer = styled.div`
     width: 296px;
     height: 338.25px;
@@ -25,9 +15,7 @@ const Basket = (productName: any, quantity: any, price: any) => {
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 20%;
-    grid-area: sidebarRight;
-    left: 18%;
+    background: #1ea4ce;
   `;
 
   const InnerContainer = styled.div`
@@ -35,13 +23,14 @@ const Basket = (productName: any, quantity: any, price: any) => {
     height: 321.9px;
     border: 2px solid #ffffff;
     position: relative;
+    background: white;
   `;
 
   const SelectedProductsContainer = styled.div`
     width: 281px;
     height: 40.88px;
     position: absolute;
-    background-color: red;
+    margin: 4px;
     position: relative;
   `;
 
@@ -51,42 +40,67 @@ const Basket = (productName: any, quantity: any, price: any) => {
     color: #1ea4ce;
     display: flex;
     justify-content: center;
-    position: relative;
-    top: 70%;
+    position: absolute;
+    top: 80%;
     left: 65%;
     border: 2px solid #1ea4ce;
   `;
-  const ProductQuantity = styled.div`
-    width: 32px;
-    height: 32px;
+
+  const ProductPriceContainer = styled.div`
+    height: 19px;
+    width: 45px;
     position: absolute;
-    background-color: blue;
-    top: 12%;
-    left: 80%;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: #1ea4ce;
+    top: 15px;
   `;
-  const PlusSign = styled.img`
-    place-self: center;
-    top: 30%;
-    position: relative;
-    left: 44%;
+  const ProductNameContainer = styled.div`
+    height: 18px;
+    width: 100%;
+    position: absolute;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
   `;
-  const MinusSign = styled.img`
-    place-self: center;
-    top: 18%;
-    position: relative;
-    left: 27%;
+
+  const BasketItemsContainer = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 260px;
+    overflow: auto;
   `;
+
+  const renderProductsOnTheBasket = () => {
+    if (state) {
+      return state.productsInTheBasket.map((product: any) => {
+        return (
+          <SelectedProductsContainer>
+            <ProductNameContainer>{product.name}</ProductNameContainer>
+            <ProductPriceContainer>{product.price}</ProductPriceContainer>
+            <QuantitySelection product={product} />
+          </SelectedProductsContainer>
+        );
+      });
+    } else {
+      return [];
+    }
+  };
+
   return (
     <div>
       <OuterContainer>
         <InnerContainer>
-          <SelectedProductsContainer>
-            <MinusSign src="/images/minusSign.png" />
-            <ProductQuantity />
-            <PlusSign src="/images/plusSign.png" />
-          </SelectedProductsContainer>
+          <BasketItemsContainer>
+            {renderProductsOnTheBasket()}
+          </BasketItemsContainer>
           <TotalCostContainer>
-            <p>₺39,95</p>
+            <p>₺{state ? state.totalCost : 0}</p>
           </TotalCostContainer>
         </InnerContainer>
       </OuterContainer>

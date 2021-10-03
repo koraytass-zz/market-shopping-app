@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToBasket } from "../redux/actions";
 import styled from "styled-components";
+import QuantitySelection from "./quantitySelection";
 
 const ProductPool = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state: any) => state.basketReducer);
+  const state = useSelector((state: any) => {
+    return { ...state.basketReducer, ...state.sortedProductsReducer };
+  });
 
   const ProductPoolContainer = styled.div`
     height: 100%;
     width: 100%;
-    grid-area:content;
+    grid-area: content;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    background: white;
   `;
   const ProductCardContainer = styled.div`
     height: 225px;
-    width: 124px;
+    width: 154px;
     position: relative;
     left: 3%;
   `;
@@ -43,7 +47,6 @@ const ProductPool = () => {
     height: 23px;
     width: 124px;
     position: absolute;
-    background-color: red;
     font-family: Helvetica;
     font-style: normal;
     font-weight: normal;
@@ -57,7 +60,6 @@ const ProductPool = () => {
     height: 40px;
     width: 124px;
     position: absolute;
-    background: blue;
     top: 60%;
     font-family: Open Sans;
     font-style: normal;
@@ -67,14 +69,17 @@ const ProductPool = () => {
 
     color: #191919;
   `;
-  const ProductQuantityContainer = styled.div`
+  const ProductQuantityContainer = styled.button`
     height: 22px;
     width: 124px;
     position: absolute;
     background: #1ea4ce;
+    color: white;
+    border: none;
     border-radius: 2px;
     top: 86%;
   `;
+
   const handleClick = (slug?: string) => {
     if (slug) {
       console.log(slug);
@@ -82,19 +87,43 @@ const ProductPool = () => {
     }
   };
 
+  const renderQuantitySelection = (currentProduct: any) => {
+    let slugsOfBasketProducts: string[] = [];
+    state && state.productsInTheBasket.forEach((product: any) => {
+      slugsOfBasketProducts.push(product?.slug);
+    });
+    if (state && state.productsInTheBasket.length > 0) {
+        if (slugsOfBasketProducts.includes(currentProduct.slug)) {
+          return <QuantitySelection product={currentProduct} />;
+        } else {
+          return (
+            <ProductQuantityContainer onClick={() => handleClick(currentProduct.slug)}>
+              Add
+            </ProductQuantityContainer>
+          );
+        }
+    } else if (state) {
+      return (
+        <ProductQuantityContainer onClick={() => handleClick(currentProduct.slug)}>
+          Add
+        </ProductQuantityContainer>
+      );
+    } else {
+      return [];
+    }
+  };
+
   const renderProducts = () => {
-    if (state) {
-      return state.products.map((product: any) => {
+    if (state && state.productsOnScreen) {
+      return state.productsOnScreen.map((product: any) => {
         return (
           <ProductCardContainer>
             <ImageBackgroundContainer>
               <ImageContainer></ImageContainer>
             </ImageBackgroundContainer>
             <ProductPriceContainer>{product.price}</ProductPriceContainer>
-            <ProductNameContainer>{product.productName}</ProductNameContainer>
-            <ProductQuantityContainer>
-              <button onClick={() => handleClick(product.slug)}>Add</button>
-            </ProductQuantityContainer>
+            <ProductNameContainer>{product.name}</ProductNameContainer>
+            {renderQuantitySelection(product)}
           </ProductCardContainer>
         );
       });
