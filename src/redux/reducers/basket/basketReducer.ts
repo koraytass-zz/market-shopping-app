@@ -1,4 +1,5 @@
 import * as actionTypes from "../../actions/actionTypes";
+
 // check can use it general Product array
 interface Product {
   tags: string[];
@@ -27,19 +28,30 @@ const basketReducer = (state = initialState, action: any) => {
     case actionTypes.FETCHING_PRODUCTS: {
       return { ...state, products: action.products };
     }
+    case actionTypes.FETCHING_COMPANIES: {
+      return { ...state, products: action.companies };
+    }
     case actionTypes.ADD_TO_BASKET: {
       let addedProduct: Product | undefined = state.products.find(
         (product: Product) => product.slug === action.slug
       );
       if (addedProduct) {
         let newTotalCost: number = state.totalCost + addedProduct.price;
+        console.log("add item: ", {
+          ...state,
+          productsInTheBasket: [
+            ...state.productsInTheBasket,
+            { ...addedProduct, productCount: 1 },
+          ],
+          totalCost: (Number(newTotalCost.toFixed(2))),
+        });
         return {
           ...state,
           productsInTheBasket: [
-            ...state.products,
+            ...state.productsInTheBasket,
             { ...addedProduct, productCount: 1 },
           ],
-          totalCost: newTotalCost,
+          totalCost: (Number(newTotalCost.toFixed(2))),
         };
       } else {
         return { ...state };
@@ -65,39 +77,50 @@ const basketReducer = (state = initialState, action: any) => {
       }
     }
     case actionTypes.INCREASE_ITEMS: {
-      let newTotalCost;
-      let increasedItem: Product | undefined = state.products.find(
+      let newTotalCost = 0;
+      let increasedItem: Product | undefined = state.productsInTheBasket.find(
         (product: Product) => product.slug === action.slug
       );
+      let increasedItemIndex: number = state.productsInTheBasket.findIndex(
+        (product: Product) => product.slug === action.slug
+      );
+      let newState = { ...state };
       if (increasedItem && increasedItem.productCount) {
         increasedItem.productCount += 1;
         newTotalCost = state.totalCost + increasedItem.price;
       } else if (increasedItem) {
         increasedItem.productCount = 1;
       }
+      if (increasedItem) {
+        newState.productsInTheBasket[increasedItemIndex] = increasedItem;
+      }
       return {
-        ...state,
-        //productsInTheBasket: [...state.productsInTheBasket],
-        totalCost: newTotalCost,
+        ...newState,
+        totalCost: (Number(newTotalCost.toFixed(2))),
       };
     }
     case actionTypes.DECREASE_ITEMS: {
-      let newTotalCost;
-      let decreasedItem: Product | undefined = state.products.find(
+      let newTotalCost = 0;
+      let decreasedItem: Product | undefined = state.productsInTheBasket.find(
         (product: Product) => product.slug === action.slug
       );
-      if (
-        decreasedItem &&
-        decreasedItem.productCount &&
-        decreasedItem.productCount > 1
-      ) {
+      let decreasedItemIndex: number = state.productsInTheBasket.findIndex(
+        (product: Product) => product.slug === action.slug
+      );
+      let newState = { ...state };
+      if (decreasedItem && decreasedItem.productCount) {
         decreasedItem.productCount -= 1;
-        newTotalCost = state.totalCost - decreasedItem.price;
+        if (decreasedItem.productCount === 0) { 
+          newState.productsInTheBasket.splice(decreasedItemIndex, 1);
+        }
+        newTotalCost =
+          state.totalCost - decreasedItem.price > 0
+            ? state.totalCost - decreasedItem.price
+            : 0;
       }
       return {
-        ...state,
-        //productsInTheBasket: [...state.productsInTheBasket],
-        totalCost: newTotalCost,
+        ...newState,
+        totalCost: (Number(newTotalCost.toFixed(2))),
       };
     }
     default: {
