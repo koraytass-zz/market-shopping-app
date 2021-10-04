@@ -11,8 +11,8 @@ const QuantitySelection = (props: any) => {
     position: absolute;
     background: #1ea4ce;
     color: white;
-    top: 12%;
-    left: 80%;
+    top: 86%;
+    left: 30%;
   `;
   const PlusSign = styled.button`
     place-self: center;

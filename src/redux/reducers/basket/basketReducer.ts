@@ -1,5 +1,4 @@
 import * as actionTypes from "../../actions/actionTypes";
-import _ from 'lodash';
 
 // check can use it general Product array
 interface Product {
@@ -44,7 +43,7 @@ const basketReducer = (state = initialState, action: any) => {
             ...state.productsInTheBasket,
             { ...addedProduct, productCount: 1 },
           ],
-          totalCost: newTotalCost,
+          totalCost: (Number(newTotalCost.toFixed(2))),
         });
         return {
           ...state,
@@ -52,7 +51,7 @@ const basketReducer = (state = initialState, action: any) => {
             ...state.productsInTheBasket,
             { ...addedProduct, productCount: 1 },
           ],
-          totalCost: newTotalCost,
+          totalCost: (Number(newTotalCost.toFixed(2))),
         };
       } else {
         return { ...state };
@@ -111,8 +110,8 @@ const basketReducer = (state = initialState, action: any) => {
       let newState = { ...state };
       if (decreasedItem && decreasedItem.productCount) {
         decreasedItem.productCount -= 1;
-        if (decreasedItem.productCount === 0) {
-          _.remove(newState.productsInTheBasket, decreasedItemIndex);
+        if (decreasedItem.productCount === 0) { 
+          newState.productsInTheBasket.splice(decreasedItemIndex, 1);
         }
         newTotalCost =
           state.totalCost - decreasedItem.price > 0

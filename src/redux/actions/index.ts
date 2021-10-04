@@ -38,3 +38,10 @@ export const decreaseItems = (payload: string) => {
     return {type: actionTypes.DECREASE_ITEMS, slug: payload}
 }
 
+export const filterByItemType = (payload: any) => {
+    return {type: actionTypes.FILTER_BY_ITEM_TYPE, filteredProducts: payload}
+}
+
+export const filterByTag = (payload: any) => {
+    return {type: actionTypes.FILTER, payload}
+}

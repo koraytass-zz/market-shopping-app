@@ -1,5 +1,6 @@
+import { timeStamp } from "console";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { sortedByPrice, sortedByTime } from "../redux/actions";
 import { sortProducts } from "../utils/sortingProducts";
@@ -7,6 +8,13 @@ import { sortProducts } from "../utils/sortingProducts";
 const Sorting = () => {
   const dispatch = useDispatch();
   const [select, setSelect] = useState("PricingToHigh");
+  const state = useSelector((state: any) => {
+    return {
+      ...state.basketReducer,
+      ...state.sortedProductsReducer,
+      ...state.filteredProductsReducer,
+    };
+  });
 
   const handleSelectChange = (event: any) => {
     const value = event.target.value;
@@ -14,16 +22,17 @@ const Sorting = () => {
   };
 
   useEffect(() => {
-    const sortWrapper = async () => {
-      let products = await sortProducts(select);
-      if(products.actionType === 'SORTING_BY_PRICE'){
-        dispatch(sortedByPrice(products.sortedproducts));
-      }
-      else{
-        dispatch(sortedByTime(products.sortedproducts));
-      }
-  };
-  sortWrapper();
+    setTimeout(() => {
+      const sortWrapper = async () => {
+        let products = await sortProducts(select, state.productsOnScreen);
+        if (products.actionType === "SORTING_BY_PRICE") {
+          dispatch(sortedByPrice(products.sortedproducts));
+        } else {
+          dispatch(sortedByTime(products.sortedproducts));
+        }
+      };
+      sortWrapper();
+    }, 3000);
   }, [select]);
 
   return (

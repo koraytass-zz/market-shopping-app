@@ -15,21 +15,49 @@ interface Product {
 interface InitialState {
   products: Product[];
   productsOnScreen: Product[];
+  filteredProductsOnScreen : Product[];
 }
 const initialState: InitialState = {
   products: [],
   productsOnScreen: [],
+  filteredProductsOnScreen: [],
 };
 const filteredProducts = (state = initialState, action: any) => {
   switch (action.type) {
     case actionTypes.FILTER: {
-      let filteredProducts: Product[] = state.products.filter(
-        (product: Product) =>
-          (action.manufacturer.length > 0 && action.manufacturer.includes(product.manufacturer)) &&
-          (action.tags.length > 0 && action.tags.includes(product.tags)) &&
-          (action.itemType.length > 0 && action.itemType.includes(product.itemType))
+      let filteredProductsOnScreen: Product[] = state.productsOnScreen.filter(
+        (product: Product) => {
+          if (
+            action.payload.manufacturer?.length > 0 &&
+            action.payload.manufacturer.includes(product.manufacturer)
+          ) {
+            return true;
+          }
+          if (action.payload.tags?.length > 0) {
+            for (let index = 0; index < action.payload.tags.length; index++) {
+              if (action.payload.tags.includes(product.tags[index])) {
+                return true;
+              }
+            }
+          }
+          if (
+            action.payload.itemType?.length > 0 &&
+            action.payload.itemType.includes(product.itemType)
+          ) {
+            return true;
+          }
+          return false;
+        }
       );
-      return { ...state, productsOnScreen: filteredProducts };
+      return { ...state, filteredProductsOnScreen: filteredProductsOnScreen };
+    }
+    case actionTypes.FILTER_BY_ITEM_TYPE: {
+      return { ...state, productsOnScreen: action.filteredProducts };
+    }
+    default: {
+      return {
+        ...state,
+      };
     }
   }
 };

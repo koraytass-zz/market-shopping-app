@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { filterByItemType } from "../redux/actions";
+import { getFilteredProductsByItemType } from "../utils/dbManagement";
 
 function Toggle() {
   const [appState, changeState] = useState<{
@@ -44,6 +47,17 @@ function Toggle() {
     justify-content: center;
     color: #ffffff;
   `;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const getFilteredProductsWrapper = async () => {
+      const filteredProducts = await getFilteredProductsByItemType(
+        appState.activeObject.key
+      );
+      dispatch(filterByItemType(filteredProducts));
+    };
+    getFilteredProductsWrapper();
+
+  }, [dispatch, appState.activeObject.key]);
 
   const toggleActive = (index: any) => {
     changeState({ ...appState, activeObject: appState.objects[index] });

@@ -7,7 +7,7 @@ import QuantitySelection from "./quantitySelection";
 const ProductPool = () => {
   const dispatch = useDispatch();
   const state = useSelector((state: any) => {
-    return { ...state.basketReducer, ...state.sortedProductsReducer };
+    return { ...state.basketReducer, ...state.sortedProductsReducer, ...state.filteredProductsReducer };
   });
 
   const ProductPoolContainer = styled.div`
@@ -94,7 +94,8 @@ const ProductPool = () => {
     });
     if (state && state.productsInTheBasket.length > 0) {
         if (slugsOfBasketProducts.includes(currentProduct.slug)) {
-          return <QuantitySelection product={currentProduct} />;
+          let basketProductIndex = slugsOfBasketProducts.indexOf(currentProduct.slug);
+          return <QuantitySelection product={state.productsInTheBasket[basketProductIndex]} />;
         } else {
           return (
             <ProductQuantityContainer onClick={() => handleClick(currentProduct.slug)}>
@@ -114,7 +115,20 @@ const ProductPool = () => {
   };
 
   const renderProducts = () => {
-    if (state && state.productsOnScreen) {
+    if (state && state.filteredProductsOnScreen && state.filteredProductsOnScreen.length > 0) {
+      return state.filteredProductsOnScreen.map((product: any) => {
+        return (
+          <ProductCardContainer>
+            <ImageBackgroundContainer>
+              <ImageContainer></ImageContainer>
+            </ImageBackgroundContainer>
+            <ProductPriceContainer>{product.price}</ProductPriceContainer>
+            <ProductNameContainer>{product.name}</ProductNameContainer>
+            {renderQuantitySelection(product)}
+          </ProductCardContainer>
+        );
+      });
+    } else if(state && state.productsOnScreen){
       return state.productsOnScreen.map((product: any) => {
         return (
           <ProductCardContainer>

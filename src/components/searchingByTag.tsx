@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Checkbox from "./checkBox";
 import { getTags } from "../utils/dbManagement";
+import { useDispatch } from "react-redux";
+import { filterByTag } from "../redux/actions";
 const Input = styled.input`
   line-height: 24px;
   color: #a8a8a8;
@@ -22,6 +24,7 @@ const SearchingByTag = () => {
     {}
   );
   const [searchInput, setSearchInput] = useState<string>("");
+  const dispatch = useDispatch();
   const handleCheckboxChange: (event: any) => void = (event) => {
     console.log(event.target.name);
     setCheckedBoxes({
@@ -61,12 +64,22 @@ const SearchingByTag = () => {
     setTags(filteredTags);
   };
 
+  useEffect(() => {
+    let checkedTags = Object.keys(checkedBoxes).filter((tagName) => {
+      if(checkedBoxes[tagName]){
+        return tagName;
+      }
+    });
+
+    dispatch(filterByTag({tags : checkedTags}));
+  }, [checkedBoxes]);
+
   return (
     <>
       <Container>
         <span>Tags</span>
         <FilterArea>
-        <Input
+          <Input
             autoFocus
             key="search-input"
             type="text"

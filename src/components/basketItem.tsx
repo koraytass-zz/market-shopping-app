@@ -75,7 +75,11 @@ const Basket = () => {
     height: 260px;
     overflow: auto;
   `;
-
+  const QuantityContainer = styled.div`
+    position: absolute;
+    top:15%;
+    left 84%;
+  `;
   const renderProductsOnTheBasket = () => {
     if (state) {
       return state.productsInTheBasket.map((product: any) => {
@@ -83,7 +87,9 @@ const Basket = () => {
           <SelectedProductsContainer>
             <ProductNameContainer>{product.name}</ProductNameContainer>
             <ProductPriceContainer>{product.price}</ProductPriceContainer>
-            <QuantitySelection product={product} />
+            <QuantityContainer>
+              <QuantitySelection product={product} />
+            </QuantityContainer>
           </SelectedProductsContainer>
         );
       });
