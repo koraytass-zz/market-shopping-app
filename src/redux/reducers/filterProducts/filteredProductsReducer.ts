@@ -30,7 +30,7 @@ const filteredProducts = (state = initialState, action: any) => {
       if (action.payload.manufacturer?.length === 0) {
         filteredProductsOnScreen = state.products;
       } else {
-        filteredProductsOnScreen = state.productsOnScreen.filter(
+        filteredProductsOnScreen = state.products.filter(
           (product: Product) => {
             if (action.payload.manufacturer?.length > 0) {
               for (
@@ -58,7 +58,7 @@ const filteredProducts = (state = initialState, action: any) => {
       if (action.payload.tags?.length === 0) {
         filteredProductsOnScreen = state.products;
       } else {
-        filteredProductsOnScreen = state.productsOnScreen.filter(
+        filteredProductsOnScreen = state.products.filter(
           (product: Product) => {
             if (action.payload.tags?.length > 0) {
               for (let index = 0; index < action.payload.tags.length; index++) {
