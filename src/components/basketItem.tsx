@@ -23,11 +23,12 @@ const Basket = () => {
   `;
 
   const SelectedProductsContainer = styled.div`
-    width: 281px;
+    width: 95%;
     height: 40.88px;
     position: absolute;
     margin: 4px;
     position: relative;
+    border-bottom: 1px solid #f4f4f4;
   `;
 
   const TotalCostContainer = styled.div`
@@ -69,7 +70,7 @@ const Basket = () => {
     position: absolute;
     width: 100%;
     height: 260px;
-    overflow: auto;
+    overflow-y: auto;
   `;
   const QuantityContainer = styled.div`
     position: absolute;

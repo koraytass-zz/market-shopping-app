@@ -77,6 +77,11 @@ const ProductPool = () => {
     border-radius: 2px;
     top: 86%;
   `;
+  const PaginationContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  `;
   const dispatch = useDispatch();
   const state = useSelector((state: any) => {
     return {
@@ -86,7 +91,7 @@ const ProductPool = () => {
     };
   });
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   function handlePageClick({ selected: selectedPage }: { selected: number }) {
     setCurrentPage(selectedPage);
@@ -167,19 +172,22 @@ const ProductPool = () => {
   return (
     <ProductPoolContainer>
       {renderProducts()}{" "}
-      <ReactPaginate
-        pageRangeDisplayed={5}
-        marginPagesDisplayed={4}
-        previousLabel={"← Previous"}
-        nextLabel={"Next →"}
-        pageCount={pageCount}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        previousLinkClassName={"pagination__link"}
-        nextLinkClassName={"pagination__link"}
-        disabledClassName={"pagination__link--disabled"}
-        activeClassName={"pagination__link--active"}
-      />
+      <PaginationContainer>
+        <ReactPaginate
+          initialPage={currentPage}
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={4}
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          previousLinkClassName={"pagination__link"}
+          nextLinkClassName={"pagination__link"}
+          disabledClassName={"pagination__link--disabled"}
+          activeClassName={"pagination__link--active"}
+        />
+      </PaginationContainer>
     </ProductPoolContainer>
   );
 };
