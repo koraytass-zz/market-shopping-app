@@ -86,7 +86,6 @@ const ProductPool = () => {
   const state = useSelector((state: any) => {
     return {
       ...state.basketReducer,
-      ...state.sortedProductsReducer,
       ...state.filteredProductsReducer,
     };
   });
@@ -131,6 +130,7 @@ const ProductPool = () => {
       } else {
         return (
           <ProductQuantityContainer
+            data-testid={`add-${currentProduct.name}`}
             onClick={() => handleClick(currentProduct.slug)}
           >
             Add
@@ -140,6 +140,7 @@ const ProductPool = () => {
     } else if (state) {
       return (
         <ProductQuantityContainer
+          data-testid={`add-${currentProduct.name}`}
           onClick={() => handleClick(currentProduct.slug)}
         >
           Add
@@ -159,7 +160,7 @@ const ProductPool = () => {
               <ImageContainer></ImageContainer>
             </ImageBackgroundContainer>
             <ProductPriceContainer>{product.price}</ProductPriceContainer>
-            <ProductNameContainer>{product.name}</ProductNameContainer>
+            <ProductNameContainer data-testid={`sorted-${product.name}`}>{product.name}</ProductNameContainer>
             {renderQuantitySelection(product)}
           </ProductCardContainer>
         );

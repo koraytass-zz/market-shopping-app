@@ -97,6 +97,7 @@ const Sorting = () => {
       <span>Sorting</span>
       <Item>
         <RadioButton
+          data-testid={"Price low to high"}
           type="radio"
           name="radio"
           value="PricingToHigh"
