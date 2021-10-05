@@ -57,25 +57,7 @@ const basketReducer = (state = initialState, action: any) => {
         return { ...state };
       }
     }
-    case actionTypes.REMOVE_FROM_BASKET: {
-      let removedProduct: Product | undefined = state.products.find(
-        (product: Product) => product.slug === action.slug
-      );
-      let remainingProducts: Product[] = state.productsInTheBasket.filter(
-        (product: Product) => product.slug !== action.product.slug
-      );
-      if (removedProduct && removedProduct.productCount) {
-        let newTotalCost: number =
-          state.totalCost - removedProduct.price * removedProduct.productCount;
-        return {
-          ...state,
-          productsInTheBasket: [...remainingProducts],
-          totalCost: newTotalCost,
-        };
-      } else {
-        return { ...state };
-      }
-    }
+   
     case actionTypes.INCREASE_ITEMS: {
       let newTotalCost = 0;
       let increasedItem: Product | undefined = state.productsInTheBasket.find(

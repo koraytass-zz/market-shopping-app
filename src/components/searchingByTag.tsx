@@ -17,6 +17,15 @@ const Container = styled.div`
   height: 214px;
   width: 296px;
 `;
+const TagContainer = styled.div`
+overflow: auto;
+height: 142px;
+width: 100%;
+`;
+const FilterArea = styled.div`
+background-color: white;
+`;
+
 let allTags: string[] = [];
 const SearchingByTag = () => {
   const [tags, setTags] = useState<string[]>();
@@ -26,7 +35,6 @@ const SearchingByTag = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const dispatch = useDispatch();
   const handleCheckboxChange: (event: any) => void = (event) => {
-    console.log(event.target.name);
     setCheckedBoxes({
       ...checkedBoxes,
       [event.target.name]: event.target.checked,
@@ -41,15 +49,6 @@ const SearchingByTag = () => {
     };
     getTagsWrapper();
   }, []);
-
-  const TagContainer = styled.div`
-    overflow: auto;
-    height: 142px;
-    width: 100%;
-  `;
-  const FilterArea = styled.div`
-    background-color: white;
-  `;
 
   const handleSearchChange = (event: any) => {
     let filteredTags: string[] = [];
@@ -72,7 +71,7 @@ const SearchingByTag = () => {
     });
 
     dispatch(filterByTag({tags : checkedTags}));
-  }, [checkedBoxes]);
+  }, [checkedBoxes, dispatch]);
 
   return (
     <>

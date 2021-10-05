@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { decreaseItems, increaseItems } from "../redux/actions";
 
 const QuantitySelection = (props: any) => {
-  const dispatch = useDispatch();
   const ProductQuantity = styled.div`
     width: 25px;
     height: 25px;
@@ -16,7 +15,7 @@ const QuantitySelection = (props: any) => {
   `;
   const PlusSign = styled.button`
     place-self: center;
-    top: -53%;
+    top: -15px;
     position: relative;
     left: 100%;
     border: none;
@@ -25,9 +24,9 @@ const QuantitySelection = (props: any) => {
   `;
   const MinusSign = styled.button`
     place-self: center;
-    top: 18%;
+    top: 2px;
     position: relative;
-    left: -64%;
+    left: -70%;
     border: none;
     background: white;
     color: #1ea4ce;
@@ -39,7 +38,8 @@ const QuantitySelection = (props: any) => {
     left: -6px;
     top: 3px;
   `;
-
+  const dispatch = useDispatch();
+  
   const quantity = (event: any) => {
     if (event === "increase") {
       dispatch(increaseItems(props.product.slug));

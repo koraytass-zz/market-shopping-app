@@ -4,10 +4,6 @@ import styled from "styled-components";
 import QuantitySelection from "./quantitySelection";
 
 const Basket = () => {
-  const state = useSelector((state: any) => {
-    return { ...state.basketReducer };
-  });
-
   const OuterContainer = styled.div`
     width: 296px;
     height: 338.25px;
@@ -80,6 +76,11 @@ const Basket = () => {
     top:15%;
     left 84%;
   `;
+
+  const state = useSelector((state: any) => {
+    return { ...state.basketReducer };
+  });
+
   const renderProductsOnTheBasket = () => {
     if (state) {
       return state.productsInTheBasket.map((product: any) => {

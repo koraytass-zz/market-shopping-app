@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MarketHeader from "./header";
 import Toggle from "./productTypeSelection";
 import SearchingByBrands from "./searchingByBrands";
