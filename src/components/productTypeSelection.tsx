@@ -5,24 +5,10 @@ import { filterByItemType } from "../redux/actions";
 import { getFilteredProductsByItemType } from "../utils/dbManagement";
 
 function Toggle() {
-  const [appState, changeState] = useState<{
-    activeObject: any;
-    objects: any;
-    inActiveObject: any;
-  }>({
-    activeObject: { id: 1, key: "mug" },
-    inActiveObject: {},
-    objects: [
-      { id: 1, key: "mug" },
-      { id: 2, key: "shirt" },
-    ],
-  });
-
   const Box = styled.div`
     display: flex;
     position: absolute;
-    top: 12%;
-    left: 25%;
+    top: 90px;
   `;
   const Inactive = styled.div`
     width: 60px;
@@ -47,7 +33,22 @@ function Toggle() {
     justify-content: center;
     color: #ffffff;
   `;
+
+  const [appState, changeState] = useState<{
+    activeObject: any;
+    objects: any;
+    inActiveObject: any;
+  }>({
+    activeObject: { id: 1, key: "mug" },
+    inActiveObject: {},
+    objects: [
+      { id: 1, key: "mug" },
+      { id: 2, key: "shirt" },
+    ],
+  });
+
   const dispatch = useDispatch();
+  
   useEffect(() => {
     const getFilteredProductsWrapper = async () => {
       const filteredProducts = await getFilteredProductsByItemType(
@@ -56,7 +57,6 @@ function Toggle() {
       dispatch(filterByItemType(filteredProducts));
     };
     getFilteredProductsWrapper();
-
   }, [dispatch, appState.activeObject.key]);
 
   const toggleActive = (index: any) => {

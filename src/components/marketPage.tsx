@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MarketHeader from "./header";
 import Toggle from "./productTypeSelection";
 import SearchingByBrands from "./searchingByBrands";
@@ -38,6 +38,7 @@ const MarketPage = () => {
     grid-area: content;
     width: 100%;
     top: 20px;
+    max-width: 769px;
     grid-gap: 226px 1%;
     grid-template-rows: repeat(auto-fill, 1vw);
   `;

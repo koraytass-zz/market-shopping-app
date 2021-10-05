@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToBasket } from "../redux/actions";
 import styled from "styled-components";
 import QuantitySelection from "./quantitySelection";
+import ReactPaginate from "react-paginate";
+
+const PER_PAGE = 16;
 
 const ProductPool = () => {
-  const dispatch = useDispatch();
-  const state = useSelector((state: any) => {
-    return { ...state.basketReducer, ...state.sortedProductsReducer, ...state.filteredProductsReducer };
-  });
-
   const ProductPoolContainer = styled.div`
     height: 100%;
     width: 100%;
@@ -79,6 +77,33 @@ const ProductPool = () => {
     border-radius: 2px;
     top: 86%;
   `;
+  const PaginationContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  `;
+  const dispatch = useDispatch();
+  const state = useSelector((state: any) => {
+    return {
+      ...state.basketReducer,
+      ...state.sortedProductsReducer,
+      ...state.filteredProductsReducer,
+    };
+  });
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  function handlePageClick({ selected: selectedPage }: { selected: number }) {
+    setCurrentPage(selectedPage);
+  }
+  const offset = currentPage * PER_PAGE;
+
+  const currentPageData = state.productsOnScreen.slice(
+    offset,
+    offset + PER_PAGE
+  );
+
+  const pageCount = Math.ceil(state.productsOnScreen.length / PER_PAGE);
 
   const handleClick = (slug?: string) => {
     if (slug) {
@@ -89,23 +114,34 @@ const ProductPool = () => {
 
   const renderQuantitySelection = (currentProduct: any) => {
     let slugsOfBasketProducts: string[] = [];
-    state && state.productsInTheBasket.forEach((product: any) => {
-      slugsOfBasketProducts.push(product?.slug);
-    });
+    state &&
+      state.productsInTheBasket.forEach((product: any) => {
+        slugsOfBasketProducts.push(product?.slug);
+      });
     if (state && state.productsInTheBasket.length > 0) {
-        if (slugsOfBasketProducts.includes(currentProduct.slug)) {
-          let basketProductIndex = slugsOfBasketProducts.indexOf(currentProduct.slug);
-          return <QuantitySelection product={state.productsInTheBasket[basketProductIndex]} />;
-        } else {
-          return (
-            <ProductQuantityContainer onClick={() => handleClick(currentProduct.slug)}>
-              Add
-            </ProductQuantityContainer>
-          );
-        }
+      if (slugsOfBasketProducts.includes(currentProduct.slug)) {
+        let basketProductIndex = slugsOfBasketProducts.indexOf(
+          currentProduct.slug
+        );
+        return (
+          <QuantitySelection
+            product={state.productsInTheBasket[basketProductIndex]}
+          />
+        );
+      } else {
+        return (
+          <ProductQuantityContainer
+            onClick={() => handleClick(currentProduct.slug)}
+          >
+            Add
+          </ProductQuantityContainer>
+        );
+      }
     } else if (state) {
       return (
-        <ProductQuantityContainer onClick={() => handleClick(currentProduct.slug)}>
+        <ProductQuantityContainer
+          onClick={() => handleClick(currentProduct.slug)}
+        >
           Add
         </ProductQuantityContainer>
       );
@@ -115,21 +151,8 @@ const ProductPool = () => {
   };
 
   const renderProducts = () => {
-    if (state && state.filteredProductsOnScreen && state.filteredProductsOnScreen.length > 0) {
-      return state.filteredProductsOnScreen.map((product: any) => {
-        return (
-          <ProductCardContainer>
-            <ImageBackgroundContainer>
-              <ImageContainer></ImageContainer>
-            </ImageBackgroundContainer>
-            <ProductPriceContainer>{product.price}</ProductPriceContainer>
-            <ProductNameContainer>{product.name}</ProductNameContainer>
-            {renderQuantitySelection(product)}
-          </ProductCardContainer>
-        );
-      });
-    } else if(state && state.productsOnScreen){
-      return state.productsOnScreen.map((product: any) => {
+    if (state && currentPageData) {
+      return currentPageData.map((product: any) => {
         return (
           <ProductCardContainer>
             <ImageBackgroundContainer>
@@ -146,7 +169,27 @@ const ProductPool = () => {
     }
   };
 
-  return <ProductPoolContainer>{renderProducts()}</ProductPoolContainer>;
+  return (
+    <ProductPoolContainer>
+      {renderProducts()}{" "}
+      <PaginationContainer>
+        <ReactPaginate
+          initialPage={currentPage}
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={4}
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          previousLinkClassName={"pagination__link"}
+          nextLinkClassName={"pagination__link"}
+          disabledClassName={"pagination__link--disabled"}
+          activeClassName={"pagination__link--active"}
+        />
+      </PaginationContainer>
+    </ProductPoolContainer>
+  );
 };
 
 export default ProductPool;

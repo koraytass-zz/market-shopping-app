@@ -11,7 +11,7 @@ const HeaderMain = styled.div`
   text-align: center;
   grid-area: header;
 `;
-const MarketIcon = styled.img``;
+
 const MarketDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -47,7 +47,7 @@ const MarketHeader = () => {
   return (
     <HeaderMain>
       <MarketDiv>
-        <MarketIcon src="/images/Logo.png" />
+        <img src="/images/Logo.png" alt="Header" />
       </MarketDiv>
       <BasketDiv>
         <BasketIcon src="/images/basket.png" />

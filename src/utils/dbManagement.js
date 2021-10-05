@@ -42,7 +42,7 @@ export const getBrands = async () => {
     data.dbCompanies.forEach(
         (company) => {
           if(!brands.includes(company.name)){
-            brands.push(company.name);
+            brands.push({name: company.name, slug: company.slug});
           }
         }
     );

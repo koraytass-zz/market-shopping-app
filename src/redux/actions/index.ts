@@ -43,5 +43,9 @@ export const filterByItemType = (payload: any) => {
 }
 
 export const filterByTag = (payload: any) => {
-    return {type: actionTypes.FILTER, payload}
+    return {type: actionTypes.FILTER_BY_TAG, payload}
+}
+
+export const filterByBrand = (payload: any) => {
+    return {type: actionTypes.FILTER_BY_BRAND, payload}
 }
