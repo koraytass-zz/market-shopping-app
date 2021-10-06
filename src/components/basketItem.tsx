@@ -87,7 +87,7 @@ const Basket = () => {
       return state.productsInTheBasket.map((product: any) => {
         return (
           <SelectedProductsContainer>
-            <ProductNameContainer>{product.name}</ProductNameContainer>
+            <ProductNameContainer data-testid={`Basket-${product.name}`}>{product.name}</ProductNameContainer>
             <ProductPriceContainer>{product.price}</ProductPriceContainer>
             <QuantityContainer>
               <QuantitySelection product={product} />

@@ -10,8 +10,11 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/react-paginate": "^7.1.1",
+    "@types/styled-components": "^5.1.14",
     "axios": "^0.21.4",
     "concurrently": "^6.2.2",
+    "http-proxy-middleware": "^0.19.1",
     "json-server": "^0.16.3",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
@@ -26,13 +29,12 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "startServer": "json-server --watch ./src/utils/serverRouter.js --port 3004",
-    "start": "concurrently  \"npm install\" \"react-scripts start\" \"npm run startServer\"",
+    "startServer": "json-server --watch ./src/utils/serverRouter.js --port 3004 &",
+    "start": "concurrently \"npm install\" \"react-scripts start\" \"npm run startServer\"",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "concurrently \"react-scripts test\" \"npm run startServer\"",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3004",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -50,10 +52,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/lodash": "^4.14.175",
-    "@types/react-paginate": "^7.1.1",
-    "@types/styled-components": "^5.1.14"
   }
 }
