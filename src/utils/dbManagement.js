@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SERVER = "http://localhost:3004";
+const SERVER = "https://case-study-koray.herokuapp.com";
 export const getProducts = async () => {
   try {
     const { data } = await axios.get(`${SERVER}/dbProducts`);
