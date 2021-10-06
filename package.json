@@ -32,7 +32,6 @@
     "test": "concurrently \"react-scripts test\" \"npm run startServer\"",
     "eject": "react-scripts eject"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
