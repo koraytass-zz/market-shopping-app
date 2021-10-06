@@ -3,10 +3,10 @@
 This project basic shopping application. Adding to product in the basket, removing from basket, sorting by price or time. Also with checkboxes user can filter products by tags or brands.
 
 # Used Technologies
-React
-StyledComponent
-Redux
-TypeScript
+React </br>
+StyledComponent</br>
+Redux</br>
+TypeScript</br>
 ## Available Scripts
 - npm run start
 - npm run test
