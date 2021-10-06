@@ -15,4 +15,4 @@ https://case-study-koray.herokuapp.com/
 
 
 ## Screenshots in app
-![alt text] /images/appScreenShot.png
+![alt text] (/images/appScreenShot.png)
