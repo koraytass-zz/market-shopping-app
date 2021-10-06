@@ -8,15 +8,11 @@ StyledComponent
 Redux
 TypeScript
 ## Available Scripts
+- npm run start
+- npm run test
+## Project link
+https://case-study-koray.herokuapp.com/
 
-"json-server": "^0.16.3", <br />
-"react-paginate": "^7.1.3", <br />
-"react-redux": "^7.2.5", <br />
-"react-scripts": "4.0.3", <br />
-"redux": "^4.1.1", <br />
-"redux-saga": "^1.1.3", <br />
-"styled-components": "^5.3.1", <br />
-"typescript": "^4.1.2", <br />
 
 ## Screenshots in app
 ![alt text] /images/appScreenShot.png
