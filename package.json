@@ -32,7 +32,7 @@
     "test": "concurrently \"react-scripts test\" \"npm run startServer\"",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3004",
+
   "eslintConfig": {
     "extends": [
       "react-app",
