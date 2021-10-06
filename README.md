@@ -13,6 +13,3 @@ TypeScript</br>
 ## Project link
 https://case-study-koray.herokuapp.com/
 
-
-## Screenshots in app
-![alt text] (/images/appScreenShot.png)
