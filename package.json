@@ -27,7 +27,7 @@
   },
   "scripts": {
     "startServer": "json-server --watch ./src/utils/serverRouter.js --port 3004",
-    "start": "concurrently \"react-scripts start\" \"npm run startServer\" \"npm install\" ",
+    "start": "concurrently  \"npm install\" \"react-scripts start\" \"npm run startServer\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
